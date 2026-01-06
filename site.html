@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Shop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+font-family: Arial;
+margin:0;
+background:#f7f7f7;
+}
+
+header{
+background:#9c27b0;
+color:white;
+padding:15px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+}
+
+.container{
+padding:15px;
+}
+
+/* product card */
+
+.product{
+background:white;
+padding:12px;
+margin-bottom:10px;
+border-radius:10px;
+box-shadow:0 0 5px #ccc;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.name{
+font-size:16px;
+font-weight:bold;
+}
+
+.price{
+color:green;
+font-weight:bold;
+}
+
+button{
+background:#9c27b0;
+color:white;
+border:none;
+padding:8px 12px;
+border-radius:8px;
+}
+
+/* Cart */
+
+.cartbox{
+background:#fff3ff;
+padding:15px;
+margin:15px;
+border-radius:12px;
+}
+
+.checkout{
+display:block;
+background:#3f51b5;
+padding:12px;
+text-align:center;
+color:white;
+margin:15px;
+border-radius:10px;
+text-decoration:none;
+font-size:18px;
+}
+
+/* Order Page */
+
+#orderPage{
+display:none;
+padding:20px;
+}
+
+.box{
+background:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 0 6px #ccc;
+}
+
+.back{
+background:#9c27b0;
+color:white;
+padding:10px 15px;
+border-radius:10px;
+text-decoration:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>My Online Shop</header>
+
+<!-- MAIN SHOP PAGE -->
+<div id="shopPage">
+
+<div class="container">
+
+<div class="product">
+<div>
+<div class="name">Tomato</div>
+<div class="price">₹40</div>
+</div>
+<button onclick="add('Tomato',40)">Add</button>
+</div>
+
+<div class="product">
+<div>
+<div class="name">Potato</div>
+<div class="price">₹35</div>
+</div>
+<button onclick="add('Potato',35)">Add</button>
+</div>
+
+<div class="product">
+<div>
+<div class="name">Apple</div>
+<div class="price">₹180</div>
+</div>
+<button onclick="add('Apple',180)">Add</button>
+</div>
+
+</div>
+
+<div class="cartbox">
+<b>Cart</b>
+<div id="cartlist"></div>
+<br>
+<b>Total: ₹<span id="total">0</span></b>
+</div>
+
+<a class="checkout" onclick="placeOrder()">Place Order</a>
+
+</div>
+
+
+<!-- ORDER SUMMARY PAGE -->
+
+<div id="orderPage">
+
+<div class="box">
+<h3>Order Summary</h3>
+
+<div id="summary"></div>
+
+<br>
+<b>Total: ₹<span id="finalTotal"></span></b>
+
+<br><br>
+
+<p><b>Status:</b> Order Recorded Successfully ✅</p>
+
+</div>
+
+<br>
+
+<a class="back" onclick="goBack()">← Back to Shop</a>
+
+</div>
+
+
+<script>
+
+let cart=[];
+let total=0;
+
+function add(name,price){
+
+cart.push({name,price});
+total+=price;
+
+document.getElementById("total").innerText=total;
+
+let text="";
+cart.forEach(x=>{
+text+= x.name+" - ₹"+x.price+"<br>";
+});
+
+document.getElementById("cartlist").innerHTML=text;
+
+}
+
+function placeOrder(){
+
+if(cart.length==0){
+alert("Please add items first");
+return;
+}
+
+document.getElementById("shopPage").style.display="none";
+document.getElementById("orderPage").style.display="block";
+
+let s="";
+cart.forEach(x=>{
+s+= x.name+" - ₹"+x.price+"<br>";
+});
+
+document.getElementById("summary").innerHTML=s;
+document.getElementById("finalTotal").innerText=total;
+
+}
+
+function goBack(){
+document.location.reload();
+}
+
+</script>
+
+</body>
+</html>
